@@ -1,0 +1,41 @@
+{% extends 'principal/nav.html' %}
+
+{% block title %}Autores{% endblock title %}
+
+{% block content %}
+<style>
+    main {
+        text-align: center;
+        margin-top: 1%;
+    }
+</style>
+
+<main class="container">
+    <h1 class="my-4">Autores</h1>
+
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Biografía</th>
+                <th scope="col">Nacimiento</th>
+                <th scope="col">Nacionalidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for autor in autores %}
+            <tr>
+                <td>{{ autor.nombre }}</td>
+                <td>{{ autor.biografia }}</td>
+                <td>{{ autor.namiciento|date:"d/m/Y" }}</td>
+                <td>{{ autor.nacionalidad }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No hay autores disponibles</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock content %}

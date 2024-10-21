@@ -1,0 +1,62 @@
+{% extends 'principal/nav.html' %}
+
+{% block title %}Formulario Usuario{% endblock title %}
+
+{% block content %}
+<style>
+    main {
+        text-align: center;
+        margin-top: 2%; /* Aumentar el margen superior */
+    }
+
+    /* Estilo del formulario */
+    form {
+        background-color: #ffffff; /* Color de fondo del formulario */
+        padding: 20px; /* Espaciado interno */
+        border-radius: 8px; /* Bordes redondeados */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+        display: inline-block; /* Centrar el formulario */
+        max-width: 500px; /* Ancho máximo del formulario */
+        width: 100%; /* Ancho del formulario */
+    }
+
+    /* Estilo de los campos de entrada */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+        width: 100%; /* Ocupa todo el ancho disponible */
+        padding: 10px; /* Espaciado interno */
+        margin: 10px 0; /* Margen entre campos */
+        border: 1px solid #ddd; /* Borde */
+        border-radius: 5px; /* Bordes redondeados */
+        font-size: 16px; /* Tamaño de fuente */
+    }
+
+    /* Estilo del botón */
+    button {
+        background-color: #e9e9e9; /* Color de fondo */
+        color: black; /* Color del texto */
+        border: none; /* Sin borde */
+        border-radius: 5px; /* Bordes redondeados */
+        padding: 10px 15px; /* Espaciado interno */
+        cursor: pointer; /* Cambia el cursor al pasar el ratón */
+        font-size: 16px; /* Tamaño de fuente */
+        transition: background-color 0.3s; /* Transición suave para el hover */
+    }
+
+    button:hover {
+        background-color: #818181;
+        color: black; 
+    }
+</style>
+
+<main>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+</main>
+{% endblock content %}

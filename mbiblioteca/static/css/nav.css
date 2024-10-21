@@ -1,0 +1,16 @@
+/* Estilos para hacer que el footer esté al fondo */
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+main{
+    text-align: center;
+}
+.tit-bienvenida{
+    margin-top: 12%;
+}
+

@@ -1,0 +1,123 @@
+{% extends 'principal/nav.html' %}
+
+{% block title %}Usuarios{% endblock title %}
+
+{% block content %}
+<style>
+    main {
+        text-align: center;
+        margin-top: 1%;
+    }
+
+    table {
+        width: 100%; /* Asegura que la tabla ocupe todo el ancho */
+        border-collapse: collapse; /* Elimina el espacio entre celdas */
+    }
+
+    th, td {
+        border: 1px solid #ddd; /* Borde de las celdas */
+        padding: 15px; /* Espaciado interno */
+        text-align: center; /* Centra el texto en cada celda */
+    }
+
+    th {
+        background-color: #818181; /* Cambia el color según tu paleta */
+        color: white; /* Color del texto en el encabezado */
+    }
+
+    tr:nth-child(odd) {
+        background-color: #f9f9f9; /* Color alterno para filas */
+    }
+
+    tr:nth-child(even) {
+        background-color: #ffffff; /* Color alterno para filas */
+    }
+
+    /* Estilos para los botones */
+    .btn-editar, .btn-eliminar {
+        background-color: #e9e9e9; /* Color de fondo */
+        color: black; /* Color del texto */
+        border: none; /* Sin borde */
+        border-radius: 5px; /* Bordes redondeados */
+        padding: 10px 15px; /* Espaciado interno */
+        cursor: pointer; /* Cambia el cursor al pasar el ratón */
+        transition: background-color 0.3s; /* Transición suave para el hover */
+    }
+
+    .btn-editar:hover, .btn-eliminar:hover {
+        background-color: #818181;
+        color: black;
+    }
+
+    .btn-primary {
+        background-color: #e9e9e9; /* Color de fondo del botón agregar */
+        color: black; /* Color del texto */
+        border: none; /* Sin borde */
+        border-radius: 5px; /* Bordes redondeados */
+        padding: 10px 15px; /* Espaciado interno */
+        cursor: pointer; /* Cambia el cursor al pasar el ratón */
+        transition: background-color 0.3s; /* Transición suave para el hover */
+    }
+
+    .btn-primary:hover {
+        background-color: #818181;
+        color: black; /* Color al pasar el ratón */
+    }
+</style>
+
+<main class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Lista de Usuarios</h1>
+        <form action="{% url 'addUsuario' %}">
+            <button class="btn btn-primary">Agregar Usuario</button>
+        </form>
+    </div>
+    
+    <table class="usuario-list">
+        <thead>
+            <tr>
+                <th><strong>Nombre</strong></th>
+                <th><strong>Correo</strong></th>
+                <th><strong>Contraseña</strong></th>
+                <th><strong>Estado</strong></th>
+                <th><strong>Rol</strong></th>
+                <th><strong>Creado</strong></th>
+                <th><strong>Actualizado</strong></th>
+                <th><strong>Editar</strong></th>
+                <th><strong>Eliminar</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if usuarios %}
+                {% for usuario in usuarios %}
+                    <tr>
+                        <td><strong>{{ usuario.nombre }}</strong></td>
+                        <td>{{ usuario.correo }}</td>
+                        <td>*******</td>
+                        <td>{{ usuario.estado }}</td>
+                        <td>{{ usuario.id_rol.nombre_rol }}</td>
+                        <td>{{ usuario.created }}</td>
+                        <td>{{ usuario.update }}</td>
+                        <td>
+                            <form action="{% url 'modUsuario' usuario.id %}">
+                                <button class="btn-editar">Editar</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{% url 'deleteUsuario' usuario.id %}">
+                                <button class="btn-eliminar">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="9" class="alert alert-warning" role="alert">
+                        No hay usuarios disponibles.
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</main>
+{% endblock content %}

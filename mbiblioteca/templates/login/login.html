@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: white; /* Color de fondo */
+            color: black; /* Color del texto */
+        }
+        .container {
+            max-width: 400px; /* Ancho máximo del contenedor */
+            margin-top: 100px; /* Margen superior para centrar el formulario */
+        }
+        .alert {
+            margin-top: 20px; /* Espacio encima de la lista de mensajes */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Iniciar Sesión</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="nombre">Nombre de usuario:</label>
+                <input type="text" class="form-control" name="nombre" placeholder="Ingrese su nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" class="form-control" name="password" placeholder="Ingrese su contraseña" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+        </form>
+
+        {% if messages %}
+            <div class="alert alert-warning" role="alert">
+                <ul class="list-unstyled">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
