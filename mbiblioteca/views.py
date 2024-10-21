@@ -11,11 +11,15 @@ def login(request):
         try:
             usuario = Usuarios.objects.get(nombre=nombre, password=password)
 
-            if usuario.estado == 2:
+            if usuario.estado == 1 and usuario.id_rol == 'Bibliotecario':
                 request.session['usuario_id'] = usuario.id
                 request.session['usuario_nombre'] = usuario.nombre
                 return redirect('inicio')
 
+            elif usuario.estado == 1 and usuario.id_rol != 'Bibliotecario':
+                request.session['usuario_id'] = usuario.id
+                request.session['usuario_nombre'] = usuario.nombre
+                return redirect('inicioComun')
             else:
                 messages.error(request, 'Usuario inactivo.')
         
@@ -108,5 +112,24 @@ def buscarLibros(request):
     return render(request, 'buscador/buscador.html', {'form': form, 'resultados': resultados})
 
 def autores(request):    
-    autores = Autor.objects.all()  # Obtener todos los autores
+    autores = Autor.objects.all()
+    return render(request, 'autores/autores.html', {'autores': autores})
+
+
+#Vistas para los usuarios no admin o mejor dicho no Bibliotecarios
+
+def indexComun(request):
+    return render(request,'noadmin/index.html')
+
+def buscadorComun(request):
+    form = BuscarLibro()
+    resultados = None
+    if 'query' in request.GET:
+        query = request.GET.get('query')
+        resultados = Libros.objects.filter(titulo__icontains=query) 
+
+    return render(request, 'buscador/buscador.html', {'form': form, 'resultados': resultados})
+
+def autoresComun(request):    
+    autores = Autor.objects.all()
     return render(request, 'autores/autores.html', {'autores': autores})

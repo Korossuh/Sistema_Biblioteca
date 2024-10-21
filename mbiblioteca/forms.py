@@ -8,7 +8,7 @@ class FormUsuario(forms.ModelForm):
     id_rol = forms.ModelChoiceField(queryset=Rol.objects.all(), required=True, widget=forms.Select(attrs={'placeholder': 'Seleccione su Rol'}))
     estado = forms.ChoiceField(
         widget=forms.Select(attrs={'placeholder': 'Seleccionar estado'}),
-        choices=[(1, 'Inactivo'), (2, 'Activo')]
+        choices=[(0, 'Inactivo'), (1, 'Activo')]
     )
     class Meta:
         model = Usuarios
