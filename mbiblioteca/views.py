@@ -11,15 +11,14 @@ def login(request):
         try:
             usuario = Usuarios.objects.get(nombre=nombre, password=password)
 
-            if usuario.estado == 1 and usuario.id_rol == 'Bibliotecario':
+            if usuario.estado == 1:
                 request.session['usuario_id'] = usuario.id
                 request.session['usuario_nombre'] = usuario.nombre
-                return redirect('inicio')
 
-            elif usuario.estado == 1 and usuario.id_rol != 'Bibliotecario':
-                request.session['usuario_id'] = usuario.id
-                request.session['usuario_nombre'] = usuario.nombre
-                return redirect('inicioComun')
+                if usuario.id_rol.nombre_rol == 'Bibliotecario':
+                    return redirect('index')
+                else:
+                    return redirect('inicioComun')
             else:
                 messages.error(request, 'Usuario inactivo.')
         
@@ -128,8 +127,8 @@ def buscadorComun(request):
         query = request.GET.get('query')
         resultados = Libros.objects.filter(titulo__icontains=query) 
 
-    return render(request, 'buscador/buscador.html', {'form': form, 'resultados': resultados})
+    return render(request, 'noadmin/buscador.html', {'form': form, 'resultados': resultados})
 
 def autoresComun(request):    
     autores = Autor.objects.all()
-    return render(request, 'autores/autores.html', {'autores': autores})
+    return render(request, 'noadmin/autores.html', {'autores': autores})

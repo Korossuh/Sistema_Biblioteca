@@ -6,7 +6,7 @@ urlpatterns = [
     #url para login
     path('',login,name='login'),
     #url para inicio admin
-    path('Index/', index , name='inicio'),
+    path('Index/', index , name='index'),
     #url para CRUD Usuarios
     path('Usuario/',usuario, name='usuario'),
     path('AddUsuario/',addUsuario,name='addUsuario'),
