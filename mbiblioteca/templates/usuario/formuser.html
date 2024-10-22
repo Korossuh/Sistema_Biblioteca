@@ -51,6 +51,7 @@
 
 <main>
     <form method="post">
+        <h1>Formulario Usuario</h1>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Guardar</button>
